@@ -21,70 +21,72 @@ export default function Pagination({
   // 1. 현재 페이지가 유효 범위를 벗어나지 않도록 보정
   const safeCurrentPage = Math.min(Math.max(1, currentPage), totalPages)
 
-  // 2. 표시할 페이지 범위 계산
-  const halfVisible = Math.floor(maxVisiblePages / 2)
-  let startPage = Math.max(1, safeCurrentPage - halfVisible)
-  const endPage = Math.min(totalPages, startPage + maxVisiblePages - 1)
-
-  // 3. 범위 보정 (끝 부분이 부족할 경우 앞부분을 늘림)
-  if (endPage - startPage + 1 < maxVisiblePages) {
-    startPage = Math.max(1, endPage - maxVisiblePages + 1)
-  }
+  // 2. 블록 단위 페이지 계산
+  // 예: maxVisiblePages가 5일 때
+  // 1~5페이지 -> startPage: 1, endPage: 5
+  // 6~10페이지 -> startPage: 6, endPage: 10
+  const currentBlock = Math.ceil(safeCurrentPage / maxVisiblePages)
+  const startPage = (currentBlock - 1) * maxVisiblePages + 1
+  const endPage = Math.min(totalPages, currentBlock * maxVisiblePages)
 
   const pages = Array.from({ length: endPage - startPage + 1 }, (_, i) => startPage + i)
 
   return (
     <nav className={cn('flex justify-center items-center gap-1', className)} aria-label="Pagination">
+      {/* 맨 처음으로 */}
+      <Button
+        variant="outline"
+        onClick={() => onPageChange(1)}
+        disabled={safeCurrentPage <= 1}
+        className="px-2 py-1 font-normal"
+        aria-label="First page"
+      >
+        {'<<'}
+      </Button>
+
+      {/* 이전 페이지 */}
       <Button
         variant="outline"
         onClick={() => onPageChange(safeCurrentPage - 1)}
         disabled={safeCurrentPage <= 1}
-        className="px-3 py-1 font-normal"
+        className="px-2 py-1 font-normal"
+        aria-label="Previous page"
       >
-        이전
+        {'<'}
       </Button>
-
-      {startPage > 1 && (
-        <>
-          <Button variant="outline" onClick={() => onPageChange(1)} className="px-3 py-1 text-gray-600 font-normal">
-            1
-          </Button>
-          {startPage > 2 && <span className="text-gray-400">...</span>}
-        </>
-      )}
 
       {pages.map((page) => (
         <Button
           key={page}
           variant={safeCurrentPage === page ? 'primary' : 'outline'}
           onClick={() => onPageChange(page)}
-          className={cn('px-3 py-1 min-w-[32px] font-normal', safeCurrentPage !== page && 'text-gray-600')}
+          className={cn('px-3 py-1 min-w-8 font-normal', safeCurrentPage !== page && 'text-gray-600')}
           aria-current={safeCurrentPage === page ? 'page' : undefined}
         >
           {page}
         </Button>
       ))}
 
-      {endPage < totalPages && (
-        <>
-          {endPage < totalPages - 1 && <span className="text-gray-400">...</span>}
-          <Button
-            variant="outline"
-            onClick={() => onPageChange(totalPages)}
-            className="px-3 py-1 text-gray-600 font-normal"
-          >
-            {totalPages}
-          </Button>
-        </>
-      )}
-
+      {/* 다음 페이지 */}
       <Button
         variant="outline"
         onClick={() => onPageChange(safeCurrentPage + 1)}
         disabled={safeCurrentPage >= totalPages}
-        className="px-3 py-1 font-normal"
+        className="px-2 py-1 font-normal"
+        aria-label="Next page"
       >
-        다음
+        {'>'}
+      </Button>
+
+      {/* 맨 끝으로 */}
+      <Button
+        variant="outline"
+        onClick={() => onPageChange(totalPages)}
+        disabled={safeCurrentPage >= totalPages}
+        className="px-2 py-1 font-normal"
+        aria-label="Last page"
+      >
+        {'>>'}
       </Button>
     </nav>
   )
