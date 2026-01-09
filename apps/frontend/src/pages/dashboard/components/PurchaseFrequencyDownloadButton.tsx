@@ -1,12 +1,9 @@
-import { ISODate } from '@/types'
+import { DateRangeParams } from '@/types'
 import { downloadCSV } from '@/lib/file'
 import Button from '@/shared/components/Button'
 import { usePurchaseFrequencyDownload } from '@/pages/dashboard/hooks/purchaseFrequency'
 
-interface PurchaseFrequencyDownloadButtonProps {
-  from?: ISODate | null
-  to?: ISODate | null
-}
+type PurchaseFrequencyDownloadButtonProps = DateRangeParams
 
 export default function PurchaseFrequencyDownloadButton({ from, to }: PurchaseFrequencyDownloadButtonProps) {
   const { fetchPurchaseFrequency, isDownloading } = usePurchaseFrequencyDownload()

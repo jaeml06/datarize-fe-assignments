@@ -1,11 +1,9 @@
 import { useSuspenseQuery } from '@tanstack/react-query'
 import { customerApi } from '@/api/customers/apis'
-import { ISODate } from '@/types'
+import { DateRangeParams } from '@/types'
 
-interface UseCustomerPurchasesParams {
+interface UseCustomerPurchasesParams extends DateRangeParams {
   customerId: number
-  from?: ISODate | null
-  to?: ISODate | null
 }
 
 export const customerPurchasesQueryOptions = ({ customerId, from, to }: UseCustomerPurchasesParams) => ({

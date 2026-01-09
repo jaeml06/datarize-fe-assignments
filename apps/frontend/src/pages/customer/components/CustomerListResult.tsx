@@ -1,18 +1,16 @@
 import { useState } from 'react'
-import { ISODate } from '@/types'
+import { DateRangeParams } from '@/types'
 import { useCustomerList } from '../hooks/customerList'
 import CustomerTable from './CustomerTable'
 import CustomerPurchaseModal from './CustomerPurchaseModal'
 import Pagination from '@/shared/components/Pagination'
 import { useModal } from '@/shared/hooks/useModal'
 
-interface CustomerListResultProps {
+interface CustomerListResultProps extends DateRangeParams {
   name?: string
   sortBy?: 'asc' | 'desc' | null
   page?: number
   limit?: number
-  from?: ISODate | null
-  to?: ISODate | null
   onPageChange: (page: number) => void
 }
 

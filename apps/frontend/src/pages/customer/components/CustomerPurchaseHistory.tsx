@@ -1,12 +1,10 @@
-import { ISODate } from '@/types'
+import { DateRangeParams } from '@/types'
 import { useCustomerPurchases } from '../hooks/useCustomerPurchases'
 import { Table } from '@/shared/components/Table'
 import { formatNumber } from '@/lib/utils'
 
-interface CustomerPurchaseHistoryProps {
+interface CustomerPurchaseHistoryProps extends DateRangeParams {
   customerId: number
-  from?: ISODate | null
-  to?: ISODate | null
 }
 
 export default function CustomerPurchaseHistory({ customerId, from, to }: CustomerPurchaseHistoryProps) {

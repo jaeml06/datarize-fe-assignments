@@ -1,18 +1,16 @@
 import { FallbackProps } from 'react-error-boundary'
-import { ISODate } from '@/types'
+import { DateRangeParams } from '@/types'
 import Modal from '@/shared/components/Modal'
 import AsyncBoundary from '@/shared/components/AsyncBoundary'
 import DataLoadingFallback from '@/shared/components/DataLoadingFallback'
 import DataErrorFallback from '@/shared/components/DataErrorFallback'
 import CustomerPurchaseHistory from './CustomerPurchaseHistory'
 
-interface CustomerPurchaseModalProps {
+interface CustomerPurchaseModalProps extends DateRangeParams {
   isOpen: boolean
   onClose: () => void
   customerId: number | null
   customerName?: string
-  from?: ISODate | null
-  to?: ISODate | null
 }
 
 export default function CustomerPurchaseModal({

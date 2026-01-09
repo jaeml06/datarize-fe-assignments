@@ -1,3 +1,4 @@
+import { DateRangeParams } from '@/types'
 import { http } from '@/api/client'
 import { API_ENDPOINTS } from '@/api/endpoints'
 import { CustomerListParams, CustomerListResponse, CustomerPurchase } from './types'
@@ -9,9 +10,9 @@ export const customerApi = {
     })
   },
 
-  getPurchases: (id: number, params?: { from?: string | null; to?: string | null }) => {
+  getPurchases: (id: number, params?: DateRangeParams) => {
     return http.get<CustomerPurchase[]>(API_ENDPOINTS.CUSTOMERS.PURCHASES(id), {
-      params,
+      params: params as unknown as Record<string, string | number | boolean | null | undefined>,
     })
   },
 }

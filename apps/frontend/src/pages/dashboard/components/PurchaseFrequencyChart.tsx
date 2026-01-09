@@ -1,11 +1,8 @@
-import { ISODate } from '@/types'
+import { DateRangeParams } from '@/types'
 import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
 import { usePurchaseFrequency } from '../hooks/purchaseFrequency'
 
-interface PurchaseFrequencyChartProps {
-  from?: ISODate | null
-  to?: ISODate | null
-}
+type PurchaseFrequencyChartProps = DateRangeParams
 
 export default function PurchaseFrequencyChart({ from, to }: PurchaseFrequencyChartProps) {
   const { data } = usePurchaseFrequency({ from, to })

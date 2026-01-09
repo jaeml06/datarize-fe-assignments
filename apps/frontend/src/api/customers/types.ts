@@ -1,4 +1,4 @@
-import { ISODate } from '@/types'
+import { DateRangeParams, ISODate } from '@/types'
 
 export interface Customer {
   id: number
@@ -27,11 +27,9 @@ export interface CustomerPurchase {
   imgSrc: string
 }
 
-export type CustomerListParams = {
+export type CustomerListParams = DateRangeParams & {
   sortBy?: 'asc' | 'desc' | null
   name?: string
   page?: number
   limit?: number
-  from?: ISODate | null
-  to?: ISODate | null
 }

@@ -9,3 +9,8 @@ type MM = `${number}${number}`
 type DD = `${number}${number}`
 
 export type ISODate = `${YYYY}-${MM}-${DD}`
+
+export type DateRangeParams = {
+  from?: ISODate | null
+  to?: ISODate | null
+}

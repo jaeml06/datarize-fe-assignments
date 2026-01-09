@@ -1,4 +1,4 @@
-import { ISODate } from '@/types'
+import { DateRangeParams, ISODate } from '@/types'
 
 export interface PurchaseFrequency {
   range: string
@@ -13,7 +13,4 @@ export interface Purchase {
   quantity: number
 }
 
-export type PurchaseFilterParams = {
-  from?: ISODate | null
-  to?: ISODate | null
-}
+export type PurchaseFilterParams = DateRangeParams
