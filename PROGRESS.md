@@ -35,10 +35,10 @@
 
 ## 6단계. 대시보드 — 가격대별 구매 빈도 테이블
 
-- [ ] API 연동 (`/api/purchase-frequency`)
-- [ ] 데이터 로딩/에러/빈 상태 처리
-- [ ] `recharts` 라이브러리 설치
-- [ ] 구매 빈도 데이터 시각화 (BarChart 등)
+- [x] API 연동 (`/api/purchase-frequency`)
+- [x] 데이터 로딩/에러/빈 상태 처리
+- [x] `recharts` 라이브러리 설치
+- [x] 구매 빈도 데이터 시각화 (BarChart 등)
 
 ## 7단계. CSV 다운로드 기능
 
