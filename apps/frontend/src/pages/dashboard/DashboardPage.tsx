@@ -1,5 +1,10 @@
+import { Suspense } from 'react'
 import DateRangePicker from '@/shared/components/DateRangePicker'
+import AsyncBoundary from '@/shared/components/AsyncBoundary'
 import { useDateRange } from '@/shared/hooks/useDateRange'
+import PurchaseFrequencyChart from './components/PurchaseFrequencyChart'
+import { ChartLoading } from './components/ChartLoading'
+import { ChartError } from './components/ChartError'
 
 export default function DashboardPage() {
   const { startDate, endDate, setStartDate, setEndDate } = useDateRange()
@@ -9,21 +14,16 @@ export default function DashboardPage() {
       <div className="flex justify-between items-center">
         <h1 className="text-2xl font-bold">대시보드</h1>
         <DateRangePicker
-          startDate={startDate ?? ''}
-          endDate={endDate ?? ''}
+          startDate={startDate}
+          endDate={endDate}
           onStartDateChange={setStartDate}
           onEndDateChange={setEndDate}
         />
       </div>
 
-      <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
-        <p className="text-gray-600 mb-2">선택된 기간:</p>
-        <p className="font-mono bg-gray-50 inline-block px-3 py-1 rounded">
-          {startDate || '시작일 미선택'} ~ {endDate || '종료일 미선택'}
-        </p>
-      </div>
-
-      <p>대시보드 페이지입니다.</p>
+      <AsyncBoundary pendingFallback={<ChartLoading />} rejectedFallback={ChartError}>
+        <PurchaseFrequencyChart startDate={startDate} endDate={endDate} />
+      </AsyncBoundary>
     </div>
   )
 }
