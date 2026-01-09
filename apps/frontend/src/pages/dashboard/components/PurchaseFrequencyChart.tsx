@@ -1,6 +1,6 @@
 import { ISODate } from '@/types'
 import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
-import { usePurchaseFrequency } from '../hooks/usePurchaseFrequency'
+import { usePurchaseFrequency } from '../hooks/purchaseFrequency'
 
 interface PurchaseFrequencyChartProps {
   startDate?: ISODate | null
