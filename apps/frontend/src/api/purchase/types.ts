@@ -1,7 +1,5 @@
 import { ISODate } from '@/types'
 
-import { CustomerListParams } from '@/api/customers/types'
-
 export interface PurchaseFrequency {
   range: string
   count: number
