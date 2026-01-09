@@ -1,4 +1,3 @@
-import { Suspense } from 'react'
 import DateRangePicker from '@/shared/components/DateRangePicker'
 import AsyncBoundary from '@/shared/components/AsyncBoundary'
 import { useDateRange } from '@/shared/hooks/useDateRange'
