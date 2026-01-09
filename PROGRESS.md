@@ -22,9 +22,9 @@
 
 ## 4단계. React Query 설정
 
-- [ ] `QueryClient` 설정 및 `QueryProvider` 구현
-- [ ] 전역 설정 (staleTime, retry 등) 적용
-- [ ] `main.tsx` 또는 `App.tsx`에 Provider 적용
+- [x] `QueryClient` 설정 및 `QueryProvider` 구현
+- [x] 전역 설정 (staleTime, retry 등) 적용
+- [x] `main.tsx` 또는 `App.tsx`에 Provider 적용
 
 ## 5단계. 날짜 범위 선택 컴포넌트
 
