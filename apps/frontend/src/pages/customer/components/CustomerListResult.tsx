@@ -7,25 +7,18 @@ interface CustomerListResultProps {
   sortBy?: 'asc' | 'desc' | null
   page?: number
   limit?: number
-  startDate?: ISODate | null
-  endDate?: ISODate | null
+  from?: ISODate | null
+  to?: ISODate | null
 }
 
-export default function CustomerListResult({
-  name,
-  sortBy,
-  page = 1,
-  limit = 20,
-  startDate,
-  endDate,
-}: CustomerListResultProps) {
+export default function CustomerListResult({ name, sortBy, page = 1, limit = 20, from, to }: CustomerListResultProps) {
   const { data } = useCustomerList({
     page,
     limit,
     name,
     sortBy,
-    startDate,
-    endDate,
+    from,
+    to,
   })
 
   return <CustomerTable customers={data.data} />

@@ -7,10 +7,10 @@ interface CustomerFiltersProps {
   onSearch: (value: string) => void
   onSortChange: (value: 'asc' | 'desc' | null) => void
   sortBy?: 'asc' | 'desc' | null
-  startDate: ISODate | null
-  endDate: ISODate | null
-  onStartDateChange: (date: ISODate | '') => void
-  onEndDateChange: (date: ISODate | '') => void
+  from: ISODate | null
+  to: ISODate | null
+  onFromChange: (date: ISODate | '') => void
+  onToChange: (date: ISODate | '') => void
 }
 
 const SORT_OPTIONS = [
@@ -23,10 +23,10 @@ export default function CustomerFilters({
   onSearch,
   sortBy,
   onSortChange,
-  startDate,
-  endDate,
-  onStartDateChange,
-  onEndDateChange,
+  from,
+  to,
+  onFromChange,
+  onToChange,
 }: CustomerFiltersProps) {
   return (
     <div className="flex flex-col md:flex-row gap-4 items-end md:items-center justify-between bg-white p-4 rounded-lg shadow-sm border border-gray-200">
@@ -39,13 +39,7 @@ export default function CustomerFilters({
 
       <div className="flex flex-col md:flex-row gap-4 w-full md:w-auto">
         <div>
-          <DateRangePicker
-            startDate={startDate}
-            endDate={endDate}
-            onStartDateChange={onStartDateChange}
-            onEndDateChange={onEndDateChange}
-            label="구매 일자"
-          />
+          <DateRangePicker from={from} to={to} onFromChange={onFromChange} onToChange={onToChange} label="구매 일자" />
         </div>
         <div className="w-full md:w-48">
           <span className="text-sm font-medium text-gray-700 mb-2 block">정렬</span>

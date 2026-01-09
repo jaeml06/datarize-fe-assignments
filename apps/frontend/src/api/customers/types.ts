@@ -32,6 +32,6 @@ export type CustomerListParams = {
   name?: string
   page?: number
   limit?: number
-  startDate?: ISODate | null
-  endDate?: ISODate | null
+  from?: ISODate | null
+  to?: ISODate | null
 }

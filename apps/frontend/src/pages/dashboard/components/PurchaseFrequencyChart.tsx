@@ -3,12 +3,12 @@ import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxi
 import { usePurchaseFrequency } from '../hooks/purchaseFrequency'
 
 interface PurchaseFrequencyChartProps {
-  startDate?: ISODate | null
-  endDate?: ISODate | null
+  from?: ISODate | null
+  to?: ISODate | null
 }
 
-export default function PurchaseFrequencyChart({ startDate, endDate }: PurchaseFrequencyChartProps) {
-  const { data } = usePurchaseFrequency(startDate, endDate)
+export default function PurchaseFrequencyChart({ from, to }: PurchaseFrequencyChartProps) {
+  const { data } = usePurchaseFrequency({ from, to })
 
   return (
     <div className="h-[400px] w-full bg-white p-6 rounded-lg shadow-sm border border-gray-200">

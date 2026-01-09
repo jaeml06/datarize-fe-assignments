@@ -1,5 +1,7 @@
 import { ISODate } from '@/types'
 
+import { CustomerListParams } from '@/api/customers/types'
+
 export interface PurchaseFrequency {
   range: string
   count: number
@@ -14,6 +16,6 @@ export interface Purchase {
 }
 
 export type PurchaseFilterParams = {
-  from?: ISODate
-  to?: ISODate
+  from?: ISODate | null
+  to?: ISODate | null
 }

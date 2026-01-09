@@ -9,7 +9,7 @@ import CustomerListResult from './components/CustomerListResult'
 export default function CustomerPage() {
   const [search, setSearch] = useState('')
   const [sortBy, setSortBy] = useState<'asc' | 'desc' | null>(null)
-  const { startDate, endDate, setStartDate, setEndDate } = useDateRange()
+  const { from, to, setFrom, setTo } = useDateRange()
 
   const handleSearch = (value: string) => {
     setSearch(value)
@@ -28,14 +28,14 @@ export default function CustomerPage() {
           onSearch={handleSearch}
           sortBy={sortBy}
           onSortChange={handleSortChange}
-          startDate={startDate}
-          endDate={endDate}
-          onStartDateChange={setStartDate}
-          onEndDateChange={setEndDate}
+          from={from}
+          to={to}
+          onFromChange={setFrom}
+          onToChange={setTo}
         />
 
         <AsyncBoundary pendingFallback={<ChartLoading />} rejectedFallback={ChartError}>
-          <CustomerListResult name={search} sortBy={sortBy} startDate={startDate} endDate={endDate} />
+          <CustomerListResult name={search} sortBy={sortBy} from={from} to={to} />
         </AsyncBoundary>
 
         {/* 페이지네이션 영역은 다음 단계에서 구현 */}
