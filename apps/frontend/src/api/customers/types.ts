@@ -8,9 +8,9 @@ export interface Customer {
 }
 
 export interface Pagination {
-  currentPage: number
+  page: number
   totalPages: number
-  totalItems: number
+  total: number
   limit: number
 }
 
