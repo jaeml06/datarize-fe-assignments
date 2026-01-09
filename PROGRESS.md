@@ -16,9 +16,9 @@
 
 ## 3단계. API 엔드포인트 함수 분리
 
-- [ ] API 엔드포인트 상수화
-- [ ] `api/purchase.ts`, `api/customers.ts` 등으로 함수 분리
-- [ ] Request/Response 타입 정의 (`src/types`)
+- [x] API 엔드포인트 상수화
+- [x] `api/customers/apis.ts`, `api/purchase/apis.ts` 등으로 함수 분리
+- [x] Request/Response 타입 정의 (`src/api/customers/types.ts`, `src/api/purchase/types.ts`)
 
 ## 4단계. React Query 설정
 
