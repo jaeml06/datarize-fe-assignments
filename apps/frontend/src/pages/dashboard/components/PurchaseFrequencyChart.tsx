@@ -26,7 +26,10 @@ export default function PurchaseFrequencyChart({ startDate, endDate }: PurchaseF
           <CartesianGrid strokeDasharray="3 3" vertical={false} />
           <XAxis dataKey="range" tick={{ fontSize: 12 }} interval={0} angle={-15} textAnchor="end" height={60} />
           <YAxis />
-          <Tooltip formatter={(value: number) => [`${value}회`, '구매 건수']} labelStyle={{ color: '#374151' }} />
+          <Tooltip
+            formatter={(value: number | undefined) => [`${value ?? 0}회`, '구매 건수']}
+            labelStyle={{ color: '#374151' }}
+          />
           <Bar dataKey="count" fill="#3b82f6" radius={[4, 4, 0, 0]} name="구매 건수" />
         </BarChart>
       </ResponsiveContainer>
