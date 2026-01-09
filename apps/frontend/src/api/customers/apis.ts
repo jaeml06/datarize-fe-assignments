@@ -9,7 +9,9 @@ export const customerApi = {
     })
   },
 
-  getPurchases: (id: number) => {
-    return http.get<CustomerPurchase[]>(API_ENDPOINTS.CUSTOMERS.PURCHASES(id))
+  getPurchases: (id: number, params?: { from?: string | null; to?: string | null }) => {
+    return http.get<CustomerPurchase[]>(API_ENDPOINTS.CUSTOMERS.PURCHASES(id), {
+      params,
+    })
   },
 }
