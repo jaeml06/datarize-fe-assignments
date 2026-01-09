@@ -1,6 +1,9 @@
+import { FallbackProps } from 'react-error-boundary'
 import { ISODate } from '@/types'
 import Modal from '@/shared/components/Modal'
 import AsyncBoundary from '@/shared/components/AsyncBoundary'
+import DataLoadingFallback from '@/shared/components/DataLoadingFallback'
+import DataErrorFallback from '@/shared/components/DataErrorFallback'
 import CustomerPurchaseHistory from './CustomerPurchaseHistory'
 
 interface CustomerPurchaseModalProps {
@@ -31,8 +34,10 @@ export default function CustomerPurchaseModal({
     >
       <div className="p-6">
         <AsyncBoundary
-          pendingFallback={<div className="h-64 flex items-center justify-center">로딩중...</div>}
-          rejectedFallback={() => <div>에러가 발생했습니다.</div>}
+          pendingFallback={<DataLoadingFallback height="h-64" />}
+          rejectedFallback={({ resetErrorBoundary }: FallbackProps) => (
+            <DataErrorFallback height="h-64" onRetry={resetErrorBoundary} />
+          )}
         >
           <CustomerPurchaseHistory customerId={customerId} from={from} to={to} />
         </AsyncBoundary>

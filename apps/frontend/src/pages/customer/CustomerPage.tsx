@@ -1,11 +1,12 @@
 import { useState, useCallback } from 'react'
+import { FallbackProps } from 'react-error-boundary'
 import AsyncBoundary from '@/shared/components/AsyncBoundary'
 import { useDateRange } from '@/shared/hooks/useDateRange'
 import { usePagination } from '@/shared/hooks/usePagination'
 import CustomerFilters from './components/CustomerFilters'
-import { ChartLoading } from '../dashboard/components/ChartLoading'
-import { ChartError } from '../dashboard/components/ChartError'
 import CustomerListResult from './components/CustomerListResult'
+import DataLoadingFallback from '@/shared/components/DataLoadingFallback'
+import DataErrorFallback from '@/shared/components/DataErrorFallback'
 
 export default function CustomerPage() {
   const [search, setSearch] = useState('')
@@ -44,7 +45,12 @@ export default function CustomerPage() {
           onToChange={setTo}
         />
 
-        <AsyncBoundary pendingFallback={<ChartLoading />} rejectedFallback={ChartError}>
+        <AsyncBoundary
+          pendingFallback={<DataLoadingFallback />}
+          rejectedFallback={({ resetErrorBoundary }: FallbackProps) => (
+            <DataErrorFallback onRetry={resetErrorBoundary} />
+          )}
+        >
           <CustomerListResult name={search} sortBy={sortBy} from={from} to={to} page={page} onPageChange={setPage} />
         </AsyncBoundary>
       </div>

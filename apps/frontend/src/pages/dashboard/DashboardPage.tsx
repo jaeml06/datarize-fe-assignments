@@ -1,10 +1,11 @@
+import { FallbackProps } from 'react-error-boundary'
 import DateRangePicker from '@/shared/components/DateRangePicker'
 import AsyncBoundary from '@/shared/components/AsyncBoundary'
 import { useDateRange } from '@/shared/hooks/useDateRange'
 import PurchaseFrequencyChart from './components/PurchaseFrequencyChart'
-import { ChartLoading } from './components/ChartLoading'
-import { ChartError } from './components/ChartError'
 import PurchaseFrequencyDownloadButton from './components/PurchaseFrequencyDownloadButton'
+import DataLoadingFallback from '@/shared/components/DataLoadingFallback'
+import DataErrorFallback from '@/shared/components/DataErrorFallback'
 
 export default function DashboardPage() {
   const { from, to, setFrom, setTo } = useDateRange()
@@ -19,7 +20,10 @@ export default function DashboardPage() {
         </div>
       </div>
 
-      <AsyncBoundary pendingFallback={<ChartLoading />} rejectedFallback={ChartError}>
+      <AsyncBoundary
+        pendingFallback={<DataLoadingFallback />}
+        rejectedFallback={({ resetErrorBoundary }: FallbackProps) => <DataErrorFallback onRetry={resetErrorBoundary} />}
+      >
         <PurchaseFrequencyChart from={from} to={to} />
       </AsyncBoundary>
     </div>
