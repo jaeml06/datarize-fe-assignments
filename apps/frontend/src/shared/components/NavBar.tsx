@@ -26,7 +26,7 @@ export default function NavBar() {
               </span>
             </Link>
 
-            <div className="hidden sm:flex sm:space-x-1">
+            <div className="flex space-x-1">
               {NAV_ITEMS.map((item) => (
                 <NavItem key={item.href} href={item.href} label={item.label} />
               ))}
