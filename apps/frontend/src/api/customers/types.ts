@@ -28,10 +28,10 @@ export interface CustomerPurchase {
 }
 
 export type CustomerListParams = {
-  sortBy?: 'asc' | 'desc'
+  sortBy?: 'asc' | 'desc' | null
   name?: string
   page?: number
   limit?: number
-  startDate?: ISODate
-  endDate?: ISODate
+  startDate?: ISODate | null
+  endDate?: ISODate | null
 }

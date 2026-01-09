@@ -5,7 +5,7 @@
  * - Content-Type 자동 설정
  */
 
-type QueryParams = Record<string, string | number | boolean | undefined>
+type QueryParams = Record<string, string | number | boolean | null | undefined>
 
 export interface RequestConfig extends Omit<RequestInit, 'body'> {
   params?: QueryParams
