@@ -7,9 +7,14 @@ import CustomerListResult from './components/CustomerListResult'
 
 export default function CustomerPage() {
   const [search, setSearch] = useState('')
+  const [sortBy, setSortBy] = useState<'asc' | 'desc' | ''>('')
 
   const handleSearch = (value: string) => {
     setSearch(value)
+  }
+
+  const handleSortChange = (value: 'asc' | 'desc' | '') => {
+    setSortBy(value)
   }
 
   return (
@@ -17,10 +22,10 @@ export default function CustomerPage() {
       <h1 className="text-2xl font-bold mb-6">고객 목록</h1>
 
       <div className="space-y-6">
-        <CustomerFilters onSearch={handleSearch} />
+        <CustomerFilters onSearch={handleSearch} sortBy={sortBy} onSortChange={handleSortChange} />
 
         <AsyncBoundary pendingFallback={<ChartLoading />} rejectedFallback={ChartError}>
-          <CustomerListResult name={search} />
+          <CustomerListResult name={search} sortBy={sortBy || undefined} />
         </AsyncBoundary>
 
         {/* 페이지네이션 영역은 다음 단계에서 구현 */}
