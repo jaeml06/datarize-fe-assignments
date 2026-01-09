@@ -1,6 +1,7 @@
 import { ISODate } from '@/types'
 import { useCustomerList } from '../hooks/customerList'
 import CustomerTable from './CustomerTable'
+import Pagination from '@/shared/components/Pagination'
 
 interface CustomerListResultProps {
   name?: string
@@ -9,9 +10,18 @@ interface CustomerListResultProps {
   limit?: number
   from?: ISODate | null
   to?: ISODate | null
+  onPageChange: (page: number) => void
 }
 
-export default function CustomerListResult({ name, sortBy, page = 1, limit = 20, from, to }: CustomerListResultProps) {
+export default function CustomerListResult({
+  name,
+  sortBy,
+  page = 1,
+  limit = 20,
+  from,
+  to,
+  onPageChange,
+}: CustomerListResultProps) {
   const { data } = useCustomerList({
     page,
     limit,
@@ -21,5 +31,14 @@ export default function CustomerListResult({ name, sortBy, page = 1, limit = 20,
     to,
   })
 
-  return <CustomerTable customers={data.data} />
+  return (
+    <div className="space-y-6">
+      <CustomerTable customers={data.data} />
+      <Pagination
+        currentPage={data.pagination.page}
+        totalPages={data.pagination.totalPages}
+        onPageChange={onPageChange}
+      />
+    </div>
+  )
 }
