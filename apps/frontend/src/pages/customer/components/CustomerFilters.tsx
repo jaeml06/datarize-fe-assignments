@@ -29,7 +29,7 @@ export default function CustomerFilters({
   onToChange,
 }: CustomerFiltersProps) {
   return (
-    <div className="flex flex-col md:flex-row gap-4 items-end md:items-center justify-between bg-white p-4 rounded-lg shadow-sm border border-gray-200">
+    <div className="flex flex-col md:flex-row md:flex-wrap gap-4 items-stretch md:items-center justify-between bg-white p-4 rounded-lg shadow-sm border border-gray-200">
       <div className="flex flex-col md:flex-row gap-4 w-full md:w-auto">
         <div className="w-full md:w-64">
           <span className="text-sm font-medium text-gray-700 mb-2 block">이름 검색</span>
