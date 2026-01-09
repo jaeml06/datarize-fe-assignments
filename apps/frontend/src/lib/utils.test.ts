@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { cn, isISODate } from './utils'
+import { cn, isISODate, formatNumber } from './utils'
 
 describe('utils (유틸리티)', () => {
   describe('cn (클래스 병합)', () => {
@@ -40,6 +40,24 @@ describe('utils (유틸리티)', () => {
       expect(isISODate('hello')).toBe(false)
       expect(isISODate('')).toBe(false)
       expect(isISODate('   ')).toBe(false)
+    })
+  })
+
+  describe('formatNumber (숫자 포맷팅)', () => {
+    it('세 자리마다 쉼표가 추가되어야 한다', () => {
+      expect(formatNumber(1000)).toBe('1,000')
+      expect(formatNumber(1000000)).toBe('1,000,000')
+      expect(formatNumber(1234567890)).toBe('1,234,567,890')
+    })
+
+    it('쉼표가 필요 없는 숫자는 그대로 반환되어야 한다', () => {
+      expect(formatNumber(0)).toBe('0')
+      expect(formatNumber(123)).toBe('123')
+    })
+
+    it('음수도 올바르게 처리되어야 한다', () => {
+      expect(formatNumber(-1000)).toBe('-1,000')
+      expect(formatNumber(-123)).toBe('-123')
     })
   })
 })
