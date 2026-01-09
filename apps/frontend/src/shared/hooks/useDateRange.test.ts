@@ -28,13 +28,13 @@ describe('useDateRange 훅', () => {
 
   describe('setStartDate (시작일 설정)', () => {
     it('시작일이 정상적으로 업데이트되어야 한다', () => {
-      const { result } = renderHook(() => useDateRange())
-
+      const { result } = renderHook(() => useDateRange({ initialEndDate: '2023-02-01' as ISODate }))
       act(() => {
         result.current.setStartDate('2023-01-01' as ISODate)
       })
 
       expect(result.current.startDate).toBe('2023-01-01')
+      expect(result.current.endDate).toBe('2023-02-01')
     })
 
     it('빈 문자열이 전달되면 시작일이 null로 설정되어야 한다', () => {
@@ -47,6 +47,17 @@ describe('useDateRange 훅', () => {
       expect(result.current.startDate).toBeNull()
     })
 
+    it('종료일이 없는 상태에서 시작일을 설정하면 종료일도 시작일로 자동 설정되어야 한다', () => {
+      const { result } = renderHook(() => useDateRange())
+
+      act(() => {
+        result.current.setStartDate('2023-01-01' as ISODate)
+      })
+
+      expect(result.current.startDate).toBe('2023-01-01')
+      expect(result.current.endDate).toBe('2023-01-01')
+    })
+
     it('새로운 시작일이 현재 종료일보다 늦으면 종료일도 시작일과 동일하게 조정되어야 한다', () => {
       const { result } = renderHook(() =>
         useDateRange({
@@ -56,12 +67,11 @@ describe('useDateRange 훅', () => {
       )
 
       act(() => {
-        // Set start date to after end date
         result.current.setStartDate('2023-01-10' as ISODate)
       })
 
       expect(result.current.startDate).toBe('2023-01-10')
-      expect(result.current.endDate).toBe('2023-01-10') // End date should verify to match start date
+      expect(result.current.endDate).toBe('2023-01-10')
     })
   })
 
@@ -86,6 +96,17 @@ describe('useDateRange 훅', () => {
       expect(result.current.endDate).toBeNull()
     })
 
+    it('시작일이 없는 상태에서 종료일을 설정하면 시작일도 종료일로 자동 설정되어야 한다', () => {
+      const { result } = renderHook(() => useDateRange())
+
+      act(() => {
+        result.current.setEndDate('2023-01-05' as ISODate)
+      })
+
+      expect(result.current.startDate).toBe('2023-01-05')
+      expect(result.current.endDate).toBe('2023-01-05')
+    })
+
     it('종료일이 시작일보다 빠르면 업데이트되지 않고 경고창을 표시해야 한다', () => {
       const { result } = renderHook(() =>
         useDateRange({
@@ -100,7 +121,7 @@ describe('useDateRange 훅', () => {
       })
 
       expect(alertMock).toHaveBeenCalledWith('종료일은 시작일보다 빠를 수 없습니다.')
-      expect(result.current.endDate).toBe('2023-01-20') // Should remain unchanged
+      expect(result.current.endDate).toBe('2023-01-20')
     })
   })
 })
