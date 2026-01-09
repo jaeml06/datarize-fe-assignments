@@ -22,7 +22,7 @@ export class HttpError extends Error {
 }
 
 // 환경변수에서 Base URL을 가져오거나 기본값 설정
-const BASE_URL = process.env.REACT_APP_API_URL || import.meta.env?.VITE_API_URL || 'http://localhost:3000'
+const BASE_URL = 'http://localhost:4000/api'
 
 const buildUrl = (path: string, params?: QueryParams): string => {
   // 상대 경로인 경우 BASE_URL과 조합
