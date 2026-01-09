@@ -1,5 +1,6 @@
 import { InputHTMLAttributes, useEffect, useState } from 'react'
 import { cn } from '@/lib/utils'
+import { useDebounce } from '@/shared/hooks/useDebounce'
 
 interface SearchInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
   onSearch: (value: string) => void
@@ -8,16 +9,11 @@ interface SearchInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, '
 
 export default function SearchInput({ className, onSearch, debounceMs = 300, ...props }: SearchInputProps) {
   const [value, setValue] = useState(props.value || '')
+  const debouncedValue = useDebounce(value, debounceMs)
 
   useEffect(() => {
-    const handler = setTimeout(() => {
-      onSearch(String(value))
-    }, debounceMs)
-
-    return () => {
-      clearTimeout(handler)
-    }
-  }, [value, debounceMs, onSearch])
+    onSearch(String(debouncedValue))
+  }, [debouncedValue, onSearch])
 
   return (
     <div className={cn('relative', className)}>
