@@ -9,10 +9,10 @@
 
 ## 2단계. 공통 API 통신 레이어 구축
 
-- [ ] `fetch` 기반 HTTP Client 유틸리티 구현 (`httpClient`)
-- [ ] `HttpError` 클래스 구현 (에러 표준화)
-- [ ] Query Params 자동 처리 로직 추가
-- [ ] 공통 헤더 및 JSON 파싱 처리
+- [x] `fetch` 기반 HTTP Client 유틸리티 구현 (`httpClient`)
+- [x] `HttpError` 클래스 구현 (에러 표준화)
+- [x] Query Params 자동 처리 로직 추가
+- [x] 공통 헤더 및 JSON 파싱 처리
 
 ## 3단계. API 엔드포인트 함수 분리
 
