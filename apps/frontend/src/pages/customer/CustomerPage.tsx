@@ -1,8 +1,7 @@
-import { useState, useCallback } from 'react'
+import { useState, useMemo } from 'react'
 import { FallbackProps } from 'react-error-boundary'
 import AsyncBoundary from '@/shared/components/AsyncBoundary'
 import { useDateRange } from '@/shared/hooks/useDateRange'
-import { usePagination } from '@/shared/hooks/usePagination'
 import CustomerFilters from './components/CustomerFilters'
 import CustomerListResult from './components/CustomerListResult'
 import DataLoadingFallback from '@/shared/components/DataLoadingFallback'
@@ -10,25 +9,15 @@ import DataErrorFallback from '@/shared/components/DataErrorFallback'
 
 export default function CustomerPage() {
   const [search, setSearch] = useState('')
-  const { page, setPage, resetPage } = usePagination()
   const [sortBy, setSortBy] = useState<'asc' | 'desc' | null>(null)
   const { from, to, setFrom, setTo } = useDateRange(undefined)
 
-  const handleSearch = useCallback(
-    (value: string) => {
-      setSearch(value)
-      resetPage() // 검색 시 페이지 초기화
-    },
-    [resetPage],
-  )
-
-  const handleSortChange = useCallback(
-    (value: 'asc' | 'desc' | null) => {
-      setSortBy(value)
-      resetPage()
-    },
-    [resetPage],
-  )
+  // 필터가 변경될 때마다 CustomerListResult를 리마운트하여 내부 Pagination 상태(1페이지)를 리셋함.
+  // Pagination 상태 관리를 CustomerListResult 내부로 위임했으므로,
+  // 상위에서는 상태를 초기화하는 트리거(key)만 제공하면 됨.
+  const filterKey = useMemo(() => {
+    return JSON.stringify({ search, sortBy, from, to })
+  }, [search, sortBy, from, to])
 
   return (
     <div className="p-6">
@@ -36,9 +25,9 @@ export default function CustomerPage() {
 
       <div className="space-y-6">
         <CustomerFilters
-          onSearch={handleSearch}
+          onSearch={setSearch}
           sortBy={sortBy}
-          onSortChange={handleSortChange}
+          onSortChange={setSortBy}
           from={from}
           to={to}
           onFromChange={setFrom}
@@ -51,7 +40,7 @@ export default function CustomerPage() {
             <DataErrorFallback onRetry={resetErrorBoundary} />
           )}
         >
-          <CustomerListResult name={search} sortBy={sortBy} from={from} to={to} page={page} onPageChange={setPage} />
+          <CustomerListResult key={filterKey} name={search} sortBy={sortBy} from={from} to={to} />
         </AsyncBoundary>
       </div>
     </div>
